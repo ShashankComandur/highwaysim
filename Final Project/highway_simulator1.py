@@ -25,24 +25,38 @@ GREEN = (55, 230, 55)
 WHITE = (255, 255, 255)
 GREY = (40, 40, 40)
 
-# Make clouds
-num_clouds = 20
-clouds = []
-for i in range(num_clouds):
-    x = random.randrange(0, 1600)
+# Make Cars
+num_cars = 4
+cars = []
+for i in range(num_cars):
+    x = 110
     y = random.randrange(-50, 200)
     loc = [x, y]
-    clouds.append(loc)
+    cars.append(loc)
 
-def draw_cloud(loc):
+def draw_cars(loc):
     x = loc[0]
     y = loc[1]
     
-    pygame.draw.ellipse(screen, WHITE, [x, y + 20, 40 , 40])
-    pygame.draw.ellipse(screen, WHITE, [x + 60, y + 20, 40 , 40])
-    pygame.draw.ellipse(screen, WHITE, [x + 20, y + 10, 25, 25])
-    pygame.draw.ellipse(screen, WHITE, [x + 35, y, 50, 50])
+    #pygame.draw.ellipse(screen, WHITE, [x, y + 20, 40 , 40])
+    #pygame.draw.ellipse(screen, WHITE, [x + 60, y + 20, 40 , 40])
+    #pygame.draw.ellipse(screen, WHITE, [x + 20, y + 10, 25, 25])
+    #pygame.draw.ellipse(screen, WHITE, [x + 35, y, 50, 50])
     pygame.draw.rect(screen, WHITE, [x + 20, y + 20, 60, 40])
+
+# Make Trucks
+num_trucks = 4
+trucks = []
+for i in range(num_trucks):
+    x = 235
+    y = random.randrange(-50, 200)
+    loc = [x, y]
+    trucks.append(loc)
+
+def draw_trucks(loc):
+    x = loc[0]
+    y = loc[1]
+    pygame.draw.rect(screen, GREEN, [x + 20, y + 20, 60, 40])
 
    
 # Game loop
@@ -55,13 +69,18 @@ while not done:
             done = True     
 
     # Game Logic
-    for c in clouds:
-        c[0] -= 2
+    for c in cars:
+        c[1] += 7
 
-        if c[0] < -100:
-           c[0] = random.randrange(800, 1600)
-           c[1] = random.randrange(-50, 200)
-             
+        if c[1] > 650:
+           c[1] = random.randrange(-800, -200)
+
+    for c in trucks:
+        c[1] += 5
+
+        if c[1] > 650:
+           c[1] = random.randrange(-800, -200)
+                        
     # Drawing Code
     ''' Ground '''
     screen.fill(GREEN)
@@ -88,9 +107,13 @@ while not done:
         pygame.draw.line(screen, WHITE, [x, y], [x, y+30], 10)
     pygame.draw.line(screen, WHITE, [580, 595], [580, 620], 10)
 
-    ''' clouds '''
-    for c in clouds:
-        draw_cloud(c)
+    ''' Cars '''
+    for c in cars:
+        draw_cars(c)
+
+    ''' Trucks '''
+    for c in trucks:
+        draw_trucks(c)
 
 
     # Update screen
