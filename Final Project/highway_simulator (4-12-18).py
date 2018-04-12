@@ -29,25 +29,27 @@ GREY = (40, 40, 40)
 #--------------------------------------------------------------------------------------------------------------------
 
 # Make Cars
-num_cars = 4
+num_cars = 8
 cars_left = []
 cars_right = []
 for i in range(num_cars):
     x = 235
     y = random.randrange(-50, 200)
-    a = 585
+    a = 595
+    b = random.randrange(-50, 200)
     loc_left = [x, y]
     loc_right = [a, b]
     cars_left.append(loc_left)
-    cars_right.append(lock_right
+    cars_right.append(loc_right)
     
 
-def draw_cars(loc):
+def draw_cars(loc_left):
     x = loc_left[0]
     y = loc_left[1]
     a = loc_right[0]
     b = loc_right[1]
     pygame.draw.rect(screen, WHITE, [x + 20, y + 20, 60, 40])
+    pygame.draw.rect(screen, WHITE, [a + 20, b + 20, 60, 40])
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -121,7 +123,7 @@ while not done:
     pygame.draw.line(screen, WHITE, [580, 595], [580, 620], 10)
 
     ''' Cars '''
-    for c in cars:
+    for c in cars_left:
         draw_cars(c)
 
     ''' Trucks '''
