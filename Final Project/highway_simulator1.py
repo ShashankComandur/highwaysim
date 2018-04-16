@@ -39,7 +39,7 @@ for i in range(num_cars):
     loc_left = [x, y]
     loc_right = [a, b]
     cars_left.append(loc_left)
-    cars_right.append(lock_right
+    cars_right.append(loc_right)
     
 
 def draw_cars(loc):

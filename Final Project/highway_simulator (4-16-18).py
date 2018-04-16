@@ -25,36 +25,44 @@ refresh_rate = 30
 GREEN = (55, 230, 55)
 WHITE = (255, 255, 255)
 GREY = (40, 40, 40)
+BLUE = (0, 0, 255)
 
 #--------------------------------------------------------------------------------------------------------------------
 
 # Make Cars
-num_cars = 3
-cars_left = []
-cars_right = []
+num_cars = 1
+cars = []
 for i in range(num_cars):
     x = 235
     y = random.randrange(-500, -200)
-    a = 595
-    b = random.randrange(-500, -200)
-    loc_left = [x, y]
-    loc_right = [a, b]
-    cars_left.append(loc_left)
-    cars_right.append(loc_right)
+    loc = [x, y]
+    cars.append(loc)
     
-
-def draw_cars(loc_left):
-    x = loc_left[0]
-    y = loc_left[1]
-    a = loc_right[0]
-    b = loc_right[1]
+def draw_cars(loc):
+    x = loc[0]
+    y = loc[1]
     pygame.draw.rect(screen, WHITE, [x + 20, y + 20, 60, 40])
-    pygame.draw.rect(screen, WHITE, [a + 20, b + 20, 60, 40])
+
+#--------------------------------------------------------------------------------------------------------------------
+
+# Make Cars But Two
+num_cars2 = 2
+cars2 = []
+for i in range(num_cars2):
+    x = 235
+    y = random.randrange(-500, -200)
+    loc2 = [x, y]
+    cars2.append(loc2)
+    
+def draw_cars2(loc2):
+    x = loc2[0]
+    y = loc2[1]
+    pygame.draw.rect(screen, BLUE, [x + 20, y + 20, 60, 40])
 
 #--------------------------------------------------------------------------------------------------------------------
 
 # Make Trucks
-num_trucks = 4
+num_trucks = 2
 trucks = []
 for i in range(num_trucks):
     x = 110
@@ -68,6 +76,12 @@ def draw_trucks(loc):
     pygame.draw.rect(screen, GREEN, [x + 20, y + 20, 60, 40])
 
 #--------------------------------------------------------------------------------------------------------------------
+
+# Random Car Generator
+
+n = random.randrange(1, 3)
+
+#--------------------------------------------------------------------------------------------------------------------
    
 # Game Loop
 done = False
@@ -79,19 +93,23 @@ while not done:
             done = True     
 
     # Game Logic
-    for c in cars_left:
-        c[1] += 7
-        if c[1] > 650:
-           c[1] = random.randrange(-800, -200)
-                      
-    for c in cars_right:
-        c[1] -= 7
-        if c[1] < -50:
-           c[1] = random.randrange(800, 1400)
 
+    if n == 1:
+        for c in cars:
+            c[1] += 7
+            if c[1] > 650:
+               c[1] = random.randrange(-800, -200)
+               n = random.randrange(1, 3)
+
+    if n == 2:
+        for c in cars2:
+            c[1] += 7
+            if c[1] > 650:
+               c[1] = random.randrange(-800, -200)
+               n = random.randrange(1, 3)
+               
     for c in trucks:
         c[1] += 5
-
         if c[1] > 650:
            c[1] = random.randrange(-800, -200)
                         
@@ -123,8 +141,12 @@ while not done:
     pygame.draw.line(screen, WHITE, [580, 595], [580, 620], 10)
 
     ''' Cars '''
-    for c in cars_left:
+    for c in cars:
         draw_cars(c)
+
+    ''' Cars 2 '''
+    for c in cars2:
+        draw_cars2(c)
 
     ''' Trucks '''
     for c in trucks:
