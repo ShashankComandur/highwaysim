@@ -1,8 +1,8 @@
 import random
 
-def randomizer():
-    n = random.randrange(1, 3)
+def rng():
+    n = random.randrange(1, 11)
+    return n
 
-randomizer
-
-print(n)
+num = rng()
+print(num)
