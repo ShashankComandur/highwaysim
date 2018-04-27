@@ -1,7 +1,3 @@
-# APCS-P PT
-# 4-30-18
-# Shashank Comandur
-
 #--------------------------------------------------------------------------------------------------------------------
 
 # Imports
@@ -95,16 +91,22 @@ for i in range(num_trucks):
     y = rng(-500, -200)
     a = 595
     b = rng(-800, -200)
-    loc = [x, y, a, b]
+    loc = [x, y, color, a, b]
     trucks.append(loc)
+
+n = rng(1, 10)
+color = color_randomizer(n)
+loc = [x, y, color, a, b]
+trucks.append(loc)
 
 def draw_trucks(loc):
     x = loc[0]
     y = loc[1]
-    a = loc[2]
-    b = loc[3]
-    pygame.draw.rect(screen, GREEN, [x + 20, y + 20, 60, 40])
-    pygame.draw.rect(screen, GREEN, [a + 20, b + 20, 60, 40])
+    color = loc[2]
+    a = loc[3]
+    b = loc[4]
+    pygame.draw.rect(screen, color, [x + 20, y + 20, 60, 40])
+    pygame.draw.rect(screen, color, [a + 20, b + 20, 60, 40])
 
 #--------------------------------------------------------------------------------------------------------------------
    
