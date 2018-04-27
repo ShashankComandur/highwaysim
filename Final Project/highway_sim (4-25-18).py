@@ -22,11 +22,17 @@ clock = pygame.time.Clock()
 refresh_rate = 60
 
 # Colors
-GREEN = (55, 230, 55)
-WHITE = (255, 255, 255)
 GREY = (40, 40, 40)
-BLUE = (0, 0, 255)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0 ,0)
+ORANGE = (255,165,0)
 YELLOW = (255, 255, 0)
+GREEN = (55, 230, 55)
+BLUE = (0, 0, 255)
+PURPLE = (98,39,174)
+PINK = (238,130,238)
+
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -36,30 +42,45 @@ cars = []
 for i in range(num_cars):
     x = 235
     y = random.randrange(-800, -200)
-    loc = [x, y]
-    cars.append(loc)
+    a = 465
+    b = random.randrange(800, 1400)
+
+
+def randomizer(n):
+    if n == 1:
+        color = WHITE
+    if n == 2:
+        color = BLACK
+    if n == 3:
+        color = RED
+    if n == 4:
+        color = ORANGE4
+    if n == 5:
+        color = YELLOW
+    if n == 6:
+        color = GREEN
+    if n == 7:
+        color = BLUE
+    if n == 8:
+        color = PURPLE
+    if n == 9:
+        color = PINK
+    return color
+
+n = random.randrange(1, 10)
+color = randomizer(n)
+loc = [x, y, color, a, b]
+cars.append(loc)               
     
 def draw_cars(loc):
     x = loc[0]
     y = loc[1]
-    pygame.draw.rect(screen, YELLOW, [x + 20, y + 20, 60, 40])
-
-#--------------------------------------------------------------------------------------------------------------------
-
-# Make Cars (Type Two)
-num_cars2 = 1
-cars2 = []
-for i in range(num_cars2):
-    x = 235
-    y = random.randrange(-800, -200)
-    loc2 = [x, y]
-    cars2.append(loc2)
+    color = loc[2]
+    a = loc[3]
+    b = loc[4]
+    pygame.draw.rect(screen, color, [x + 20, y + 20, 60, 40])
+    pygame.draw.rect(screen, color, [a + 20, b + 20, 60, 40])
     
-def draw_cars2(loc2):
-    x = loc2[0]
-    y = loc2[1]
-    pygame.draw.rect(screen, BLUE, [x + 20, y + 20, 60, 40])
-
 #--------------------------------------------------------------------------------------------------------------------
 
 # Make Trucks
@@ -68,19 +89,18 @@ trucks = []
 for i in range(num_trucks):
     x = 110
     y = random.randrange(-500, -200)
-    loc = [x, y]
+    a = 595
+    b = random.randrange(-800, -200)
+    loc = [x, y, a, b]
     trucks.append(loc)
 
 def draw_trucks(loc):
     x = loc[0]
     y = loc[1]
+    a = loc[2]
+    b = loc[3]
     pygame.draw.rect(screen, GREEN, [x + 20, y + 20, 60, 40])
-
-#--------------------------------------------------------------------------------------------------------------------
-
-# Random Car Generator
-
-n = random.randrange(1, 3)
+    pygame.draw.rect(screen, GREEN, [a + 20, b + 20, 60, 40])
 
 #--------------------------------------------------------------------------------------------------------------------
    
@@ -94,30 +114,32 @@ while not done:
             done = True
 
     # Game Logic
+    
+    # Cars (Left Side)
+    for c in cars:
+        c[1] += 3.5
+        if c[1] > 600:
+            c[1] = random.randrange(-800, -200)
 
-    if n == 1:
-        for c in cars:
-            c[1] += 3.5
-            if c[1] > 600:
-                n = random.randrange(1, 3)
-                c[1] = random.randrange(-800, -200)
-                   
+    # Cars (Right Side)
+    for c in cars:
+        c[4] -= 3.5
+        if c[4] < -600:
+            c[4] = random.randrange(800, 1400)
 
-    if n == 2:
-        for c in cars2:
-            c[1] += 3.5
-            if c[1] > 600:
-                n = random.randrange(1, 3)
-                c[1] = random.randrange(-800, -200)
-               
-               
+    # Trucks (Right Side)                 
     for c in trucks:
         c[1] += 2.5
         if c[1] > 650:
            c[1] = random.randrange(-800, -200)
+
+    # Trucks (Left Side)
+    for c in trucks:
+        c[3] -= 2.5
+        if c[3] < -600:
+           c[3] = random.randrange(1000, 1600)
                                    
     # Drawing Code
-
     ''' Ground '''
     screen.fill(GREEN)
 
@@ -147,10 +169,6 @@ while not done:
     for c in cars:
         draw_cars(c)
 
-    ''' Cars 2 '''
-    for c in cars2:
-        draw_cars2(c)
-
     ''' Trucks '''
     for c in trucks:
         draw_trucks(c)
@@ -164,3 +182,7 @@ while not done:
 
 # Close window on quit
 pygame.quit()
+
+#--------------------------------------------------------------------------------------------------------------------
+
+

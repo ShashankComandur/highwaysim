@@ -31,7 +31,7 @@ YELLOW = (255, 255, 0)
 #--------------------------------------------------------------------------------------------------------------------
 
 # Make Cars
-num_cars = 1
+num_cars = 5
 cars = []
 
 for i in range(num_cars):
@@ -82,11 +82,11 @@ while not done:
 
     # Game Logic
 
-    if n == 1:
+    '''if n == 1:
         for c in cars:
             c[1] += 3.5
             if c[1] > 600:
-                c[1] = random.randrange(-800, -200)
+                c[1] = random.randrange(-800, -200)'''
                
     for c in trucks:
         c[1] += 2.5
